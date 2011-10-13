@@ -129,6 +129,7 @@
                         <exclude>LICENSE</exclude>
                         <exclude>NOTICE</exclude>
                         <exclude>short-license-header.txt</exclude>
+                        <exclude>src/main/java/edu/wisc/nexus/auth/rut/RemoteUserNexusSecureHttpAuthenticationFilter.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>

@@ -84,8 +84,7 @@ This project includes:
   Nexus : Utilities under GNU Affero General Public License
   Nexus : Web Utils under GNU Affero General Public License
   Nexus Plugins : Plugin API under GNU General Public License
-  nexus-plugin-utils under Apache License Version 2.0
-  nexus-token-auth-plugin under Apache License Version 2.0
+  nexus-rut-auth-plugin under Apache License Version 2.0
   Objenesis under MIT License
   oro under Apache License, Version 2.0
   Plexus :: Component Annotations under The Apache Software License, Version 2.0
