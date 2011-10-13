@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to Jasig under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Jasig licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a
+    copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<nexusConfiguration>
+  <version>1.4.6</version>
+  <globalConnectionSettings>
+    <connectionTimeout>20000</connectionTimeout>
+    <retrievalRetryCount>3</retrievalRetryCount>
+    <queryString></queryString>
+  </globalConnectionSettings>
+  <restApi>
+    <baseUrl>http://localhost:8081/nexus</baseUrl>
+    <uiTimeout>60000</uiTimeout>
+  </restApi>
+  <httpProxy>
+    <enabled>true</enabled>
+    <port>8082</port>
+    <proxyPolicy>strict</proxyPolicy>
+  </httpProxy>
+  <routing>
+    <resolveLinks>true</resolveLinks>
+  </routing>
+  <repositories>
+    <repository>
+      <id>releases</id>
+      <name>Releases</name>
+      <providerRole>org.sonatype.nexus.proxy.repository.Repository</providerRole>
+      <providerHint>maven2</providerHint>
+      <localStatus>IN_SERVICE</localStatus>
+      <notFoundCacheActive>true</notFoundCacheActive>
+      <notFoundCacheTTL>1</notFoundCacheTTL>
+      <userManaged>true</userManaged>
+      <exposed>true</exposed>
+      <browseable>true</browseable>
+      <writePolicy>ALLOW_WRITE_ONCE</writePolicy>
+      <indexable>true</indexable>
+      <searchable>true</searchable>
+      <localStorage>
+        <provider>file</provider>
+      </localStorage>
+      <externalConfiguration>
+        <repositoryPolicy>RELEASE</repositoryPolicy>
+      </externalConfiguration>
+    </repository>
+  </repositories>
+  <repositoryGrouping />
+  <repositoryTargets>
+    <repositoryTarget>
+      <id>1</id>
+      <name>All (Maven2)</name>
+      <contentClass>maven2</contentClass>
+      <patterns>
+        <pattern>.*</pattern>
+      </patterns>
+    </repositoryTarget>
+    <repositoryTarget>
+      <id>2</id>
+      <name>All (Maven1)</name>
+      <contentClass>maven1</contentClass>
+      <patterns>
+        <pattern>.*</pattern>
+      </patterns>
+    </repositoryTarget>
+    <repositoryTarget>
+      <id>3</id>
+      <name>All but sources (Maven2)</name>
+      <contentClass>maven2</contentClass>
+      <patterns>
+        <pattern>(?!.*-sources.*).*</pattern>
+      </patterns>
+    </repositoryTarget>
+    <repositoryTarget>
+      <id>4</id>
+      <name>All Metadata (Maven2)</name>
+      <contentClass>maven2</contentClass>
+      <patterns>
+        <pattern>.*maven-metadata\.xml.*</pattern>
+      </patterns>
+    </repositoryTarget>
+    <repositoryTarget>
+      <id>any</id>
+      <name>All (Any Repository)</name>
+      <contentClass>any</contentClass>
+      <patterns>
+        <pattern>.*</pattern>
+      </patterns>
+    </repositoryTarget>
+    <repositoryTarget>
+      <id>4039be60ba005</id>
+      <name>edu.wisc.my.portal</name>
+      <contentClass>maven2</contentClass>
+      <patterns>
+        <pattern>/edu/wisc/my/portal/.*</pattern>
+      </patterns>
+    </repositoryTarget>
+  </repositoryTargets>
+  <smtpConfiguration>
+    <hostname>smtp-host</hostname>
+    <port>25</port>
+    <username>smtp-username</username>
+    <password>{6RWy1YXG/hoHUSCLfZjm2Q7/EqD4TDW6ZGLWHwkxxao=}</password>
+    <systemEmailAddress>system@nexus.org</systemEmailAddress>
+  </smtpConfiguration>
+  <errorReporting>
+    <jiraUrl>https://issues.sonatype.org</jiraUrl>
+    <jiraProject>PR</jiraProject>
+    <useGlobalProxy>true</useGlobalProxy>
+  </errorReporting>
+  <notification>
+    <notificationTargets>
+      <notificationTarget>
+        <targetId>autoBlockTarget</targetId>
+      </notificationTarget>
+    </notificationTargets>
+  </notification>
+</nexusConfiguration>

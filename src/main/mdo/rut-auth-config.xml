@@ -1,0 +1,113 @@
+<!--
+
+    Licensed to Jasig under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Jasig licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a
+    copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<model
+    xmlns="http://modello.codehaus.org/MODELLO/1.4.0" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://modello.codehaus.org/MODELLO/1.4.0 http://modello.codehaus.org/xsd/modello-1.4.0.xsd" 
+    xsd.namespace="http://www.sonatype.org/xsd/nexus-token-auth-plugin-1.0.0"
+    xsd.targetNamespace="http://www.sonatype.org/xsd/nexus-token-auth-plugin-1.0.0">
+
+    <id>rut-auth-config</id>
+
+    <name>NexusRemoteUserTokenAuthPluginConfiguration</name>
+
+    <description>
+        <![CDATA[
+        <p>Nexus RemoteUser/Token Auth Plugin Configuration.</p>
+        ]]>
+    </description>
+
+    <defaults>
+        <default>
+            <key>package</key>
+            <value>edu.wisc.nexus.auth.rut.config</value>
+        </default>
+    </defaults>
+
+    <classes>
+        <class rootElement="true" xml.tagName="rutAuthConfiguration">
+            <name>Configuration</name>
+            <version>1.0.0+</version>
+            <description>The root element of Nexus RemoteUser/Token Auth Plugin configuration.</description>
+            <fields>
+                <field>
+                    <name>version</name>
+                    <version>1.0.0+</version>
+                    <description>The version of the persisted model.</description>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+                <field>
+                    <name>userFile</name>
+                    <version>1.0.0+</version>
+                    <description>File to load username and password tokens from, either fully qualified or relative to this config file</description>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+                <field>
+                    <name>userRegex</name>
+                    <version>1.0.0+</version>
+                    <description>Regular expression that extracts username and password token.</description>
+                    <type>String</type>
+                    <defaultValue>^([^:]*):[^:]*:([^:]*)$</defaultValue>
+                </field>
+                <field>
+                    <name>userRegexGroup</name>
+                    <version>1.0.0+</version>
+                    <description>The regular expression group number which contains the username for the userRegex.</description>
+                    <type>int</type>
+                    <defaultValue>1</defaultValue>
+                </field>
+                <field>
+                    <name>passwordRegexGroup</name>
+                    <version>1.0.0+</version>
+                    <description>The regular expression group number which contains the password for the userRegex.</description>
+                    <type>int</type>
+                    <defaultValue>2</defaultValue>
+                </field>
+                <field>
+                    <name>refreshInterval</name>
+                    <version>1.0.0+</version>
+                    <description>Time in seconds between refreshing the configuration and the userFile.</description>
+                    <type>int</type>
+                    <defaultValue>60</defaultValue>
+                </field>
+                <field>
+                    <name>emailDomain</name>
+                    <version>1.0.0+</version>
+                    <description>(Optional) Domain to append to usernames to make them into email addresses.</description>
+                    <type>String</type>
+                </field>
+                <field>
+                    <name>defaultRoles</name>
+                    <version>1.0.0+</version>
+                    <description>The roles that all authenticated users are placed in.</description>
+                    <type>Set</type>
+                    <required>true</required>
+                    <association>
+                        <type>String</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+            </fields>
+        </class>
+    </classes>
+</model>

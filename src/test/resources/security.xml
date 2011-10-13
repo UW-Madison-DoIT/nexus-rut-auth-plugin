@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to Jasig under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Jasig licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a
+    copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<security>
+  <version>2.0.5</version>
+  <users>
+    <user>
+      <id>admin</id>
+      <firstName>Administrator</firstName>
+      <password>f865b53623b121fd34ee5426c792e5c33af8c227</password>
+      <status>active</status>
+      <email>changeme@yourcompany.com</email>
+    </user>
+    <user>
+      <id>deployment</id>
+      <firstName>Deployment</firstName>
+      <lastName>User</lastName>
+      <password>b2a0e378437817cebdf753d7dff3dd75483af9e0</password>
+      <status>active</status>
+      <email>changeme1@yourcompany.com</email>
+    </user>
+    <user>
+      <id>anonymous</id>
+      <firstName>Nexus</firstName>
+      <lastName>Anonymous User</lastName>
+      <password>0a92fab3230134cca6eadd9898325b9b2ae67998</password>
+      <status>active</status>
+      <email>changeme2@yourcompany.com</email>
+    </user>
+    <user>
+      <id>dalquist</id>
+      <firstName>Eric</firstName>
+      <lastName>Dalquist</lastName>
+      <password>a94a8fe5ccb19ba61c4c0873d391e987982fbbd3</password>
+      <status>active</status>
+      <email>eric.dalquist@doit.wisc.edu</email>
+    </user>
+  </users>
+  <roles>
+    <role>
+      <id>edu.wisc.my.portal Deployer</id>
+      <name>edu.wisc.my.portal Deployer</name>
+      <privileges>
+        <privilege>403b86049647d</privilege>
+        <privilege>403b85f4f43ba</privilege>
+      </privileges>
+    </role>
+    <role>
+      <id>DoITDeveloper</id>
+      <name>DoIT Developer</name>
+      <privileges>
+        <privilege>repository-releases</privilege>
+        <privilege>4024b8c108239</privilege>
+        <privilege>65</privilege>
+      </privileges>
+      <roles>
+        <role>ui-basic</role>
+        <role>ui-search</role>
+        <role>ui-system-feeds</role>
+        <role>ui-repo-browser</role>
+      </roles>
+    </role>
+  </roles>
+  <privileges>
+    <privilege>
+      <id>4024b8bf88ab9</id>
+      <name>Releases - (create)</name>
+      <description>Releases</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>create,read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>1</value>
+        </property>
+      </properties>
+    </privilege>
+    <privilege>
+      <id>4024b8c108239</id>
+      <name>Releases - (read)</name>
+      <description>Releases</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>1</value>
+        </property>
+      </properties>
+    </privilege>
+    <privilege>
+      <id>4024b8c1ffc51</id>
+      <name>Releases - (update)</name>
+      <description>Releases</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>update,read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>1</value>
+        </property>
+      </properties>
+    </privilege>
+    <privilege>
+      <id>4024b8c338b7a</id>
+      <name>Releases - (delete)</name>
+      <description>Releases</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>delete,read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>1</value>
+        </property>
+      </properties>
+    </privilege>
+    <privilege>
+      <id>403b85f4f43ba</id>
+      <name>Releases - edu.wisc.my.portal - (create)</name>
+      <description>Releases - edu.wisc.my.portal</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>create,read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>4039be60ba005</value>
+        </property>
+      </properties>
+    </privilege>
+    <privilege>
+      <id>403b86049647d</id>
+      <name>Releases - edu.wisc.my.portal - (read)</name>
+      <description>Releases - edu.wisc.my.portal</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>4039be60ba005</value>
+        </property>
+      </properties>
+    </privilege>
+    <privilege>
+      <id>403b860966551</id>
+      <name>Releases - edu.wisc.my.portal - (update)</name>
+      <description>Releases - edu.wisc.my.portal</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>update,read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>4039be60ba005</value>
+        </property>
+      </properties>
+    </privilege>
+    <privilege>
+      <id>403b861ad8430</id>
+      <name>Releases - edu.wisc.my.portal - (delete)</name>
+      <description>Releases - edu.wisc.my.portal</description>
+      <type>target</type>
+      <properties>
+        <property>
+          <key>repositoryGroupId</key>
+          <value></value>
+        </property>
+        <property>
+          <key>method</key>
+          <value>delete,read</value>
+        </property>
+        <property>
+          <key>repositoryId</key>
+          <value>releases</value>
+        </property>
+        <property>
+          <key>repositoryTargetId</key>
+          <value>4039be60ba005</value>
+        </property>
+      </properties>
+    </privilege>
+  </privileges>
+  <userRoleMappings>
+    <userRoleMapping>
+      <userId>admin</userId>
+      <source>default</source>
+      <roles>
+        <role>nx-admin</role>
+      </roles>
+    </userRoleMapping>
+    <userRoleMapping>
+      <userId>deployment</userId>
+      <source>default</source>
+      <roles>
+        <role>nx-deployment</role>
+        <role>repository-any-full</role>
+      </roles>
+    </userRoleMapping>
+    <userRoleMapping>
+      <userId>anonymous</userId>
+      <source>default</source>
+      <roles>
+        <role>anonymous</role>
+        <role>repository-any-read</role>
+      </roles>
+    </userRoleMapping>
+    <userRoleMapping>
+      <userId>dalquist</userId>
+      <source>default</source>
+      <roles>
+        <role>edu.wisc.my.portal Deployer</role>
+        <role>DoITDeveloper</role>
+      </roles>
+    </userRoleMapping>
+  </userRoleMappings>
+</security>
