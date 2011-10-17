@@ -21,8 +21,6 @@ package edu.wisc.nexus.auth.rut.realm;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -35,6 +33,8 @@ import org.apache.shiro.realm.Realm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.wisc.nexus.auth.rut.RemoteUserAuthenticationInfo;
 import edu.wisc.nexus.auth.rut.RemoteUserAuthenticationToken;
@@ -51,8 +51,8 @@ import edu.wisc.nexus.auth.rut.dao.UserDao;
 public class RemoteUserTokenAuthenticatingRealm extends AuthorizingRealm {
     public static final String REALM_NAME = "RUT";
     
-    protected final Log logger = LogFactory.getLog(this.getClass());
-        
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @Requirement
     private UserDao userDao;
     
@@ -90,6 +90,7 @@ public class RemoteUserTokenAuthenticatingRealm extends AuthorizingRealm {
                 throw new AuthenticationException(RemoteUserAuthenticationToken.class.getSimpleName() + " provided but no remoteUser value is set");
             }
             
+            logger.debug("Returning RemoteUserAuthenticationInfo for {}", remoteUser);
             return new RemoteUserAuthenticationInfo(remoteUser, getName());
         }
             
@@ -101,6 +102,7 @@ public class RemoteUserTokenAuthenticatingRealm extends AuthorizingRealm {
                 return null;
             }
     
+            logger.debug("Returning SimpleAuthenticationInfo for {}", userId);
             return new SimpleAuthenticationInfo(userId, password, getName());
         }
         

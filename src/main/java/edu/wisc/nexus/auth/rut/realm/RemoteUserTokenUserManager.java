@@ -20,10 +20,10 @@ package edu.wisc.nexus.auth.rut.realm;
 
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonatype.security.usermanagement.AbstractReadOnlyUserManager;
 import org.sonatype.security.usermanagement.User;
 import org.sonatype.security.usermanagement.UserManager;
@@ -38,8 +38,7 @@ import edu.wisc.nexus.auth.rut.dao.UserDao;
  */
 @Component(role = UserManager.class, hint = RemoteUserTokenAuthenticatingRealm.REALM_NAME, description = "RemoteUser/Token User Manager")
 public class RemoteUserTokenUserManager extends AbstractReadOnlyUserManager {
-    
-    protected final Log logger = LogFactory.getLog(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Requirement
     private UserDao userDao;
@@ -64,17 +63,23 @@ public class RemoteUserTokenUserManager extends AbstractReadOnlyUserManager {
 
     @Override
     public Set<String> listUserIds() {
-        return this.userDao.listUserIds();
+        final Set<String> userIds = this.userDao.listUserIds();
+        logger.debug("listUserIds: {}", userIds);
+        return userIds;
     }
 
     @Override
     public Set<User> listUsers() {
-        return this.userDao.listUsers();
+        final Set<User> users = this.userDao.listUsers();
+        logger.debug("listUsers: {}", users);
+        return users;
     }
 
     @Override
     public Set<User> searchUsers(UserSearchCriteria criteria) {
         final Set<User> users = this.listUsers();
-        return this.filterListInMemeory(users, criteria);
+        final Set<User> filteredUsers = this.filterListInMemeory(users, criteria);
+        logger.debug("filteredUsers({}): {}", criteria, filteredUsers);
+        return filteredUsers;
     }
 }

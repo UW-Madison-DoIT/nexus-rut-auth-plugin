@@ -180,6 +180,10 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
     */
     @Override
     protected void postLoad(Configuration configuration) {
+        if (configuration == null) {
+            throw new IllegalArgumentException(configurationFile.getAbsolutePath() + " is a required configuration file");
+        }
+        
         //Password file, try absolute path first, if not default to relative
         final String userFile = configuration.getUserFile();
         File passwordFile = new File(userFile);
@@ -210,6 +214,7 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
             defaultRoleIdentifiers.add(createRoleIdentifier(roleId));
             defaultRoles.add(createRole(roleId));
         }
+        this.defaultRoles = ImmutableSet.copyOf(defaultRoles);
         this.defaultRoleIdentifiers = ImmutableSet.copyOf(defaultRoleIdentifiers);
     }
 

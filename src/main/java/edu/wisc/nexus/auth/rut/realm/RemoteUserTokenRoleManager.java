@@ -23,6 +23,8 @@ import java.util.Set;
 
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonatype.security.authorization.AbstractReadOnlyAuthorizationManager;
 import org.sonatype.security.authorization.AuthorizationManager;
 import org.sonatype.security.authorization.NoSuchPrivilegeException;
@@ -38,7 +40,8 @@ import edu.wisc.nexus.auth.rut.config.RemoteUserTokenAuthPluginConfiguration;
  */
 @Component( role = AuthorizationManager.class, hint = RemoteUserTokenAuthenticatingRealm.REALM_NAME, description = "RemoteUser/Token Authorization Manager" )
 public class RemoteUserTokenRoleManager extends AbstractReadOnlyAuthorizationManager {
-    
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Requirement
     private RemoteUserTokenAuthPluginConfiguration tokenAuthPluginConfiguration;
 
@@ -55,7 +58,9 @@ public class RemoteUserTokenRoleManager extends AbstractReadOnlyAuthorizationMan
      */
     @Override
     public Set<Role> listRoles() {
-        return tokenAuthPluginConfiguration.getDefaultRoles();
+        final Set<Role> roles = tokenAuthPluginConfiguration.getDefaultRoles();
+        logger.debug("listRoles(): {}", roles);
+        return roles;
     }
 
     /* (non-Javadoc)
@@ -68,11 +73,13 @@ public class RemoteUserTokenRoleManager extends AbstractReadOnlyAuthorizationMan
         if (defaultRoles.contains(roleId)) {
             for (final Role role : this.listRoles()) {
                 if (role.getRoleId().equals(roleId)) {
+                    logger.debug("getRole({}): {}", roleId, role);
                     return role;
                 }
             }
         }
 
+        logger.debug("getRole({}): {}", roleId, null);
         return null;
     }
 
