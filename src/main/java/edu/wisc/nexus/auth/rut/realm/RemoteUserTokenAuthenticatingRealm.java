@@ -65,7 +65,14 @@ public class RemoteUserTokenAuthenticatingRealm extends AuthorizingRealm {
         this.setCachingEnabled(false);
     }
     
-    
+    /* (non-Javadoc)
+     * @see org.apache.shiro.realm.CachingRealm#getName()
+     */
+    @Override
+    public String getName() {
+        return REALM_NAME;
+    }
+
     @Override
     public boolean supports(AuthenticationToken token) {
         return token != null && (
