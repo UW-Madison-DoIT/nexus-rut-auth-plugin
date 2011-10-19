@@ -10,8 +10,9 @@
     </parent>
 
     <groupId>edu.wisc</groupId>
-    <artifactId>nexus-rut-auth-plugin</artifactId>
+    <artifactId>nexus-rut-auth-plugin-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     
     <licenses>
         <license>
@@ -27,30 +28,42 @@
             <url>http://repository.sonatype.org/content/repositories/third-party</url>
         </repository>
     </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.sonatype.nexus</groupId>
-            <artifactId>nexus-rest-api</artifactId>
-            <version>1.9.2.3</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>commons-logging-api</artifactId>
-                    <groupId>commons-logging</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.sonatype.nexus</groupId>
-            <artifactId>nexus-test-common</artifactId>
-            <version>1.9.2.3</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-third-party</id>
+            <url>http://repository.sonatype.org/content/repositories/third-party</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>alfresco-public</id>
+            <url>http://maven.alfresco.com/nexus/content/repositories/public</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <modules>
+        <module>nexus-rut-auth-filter</module>
+        <module>nexus-rut-auth-plugin</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.sonatype.nexus</groupId>
+                <artifactId>nexus-rest-api</artifactId>
+                <version>1.9.2.3</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>commons-logging-api</artifactId>
+                        <groupId>commons-logging</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.sonatype.nexus</groupId>
+                <artifactId>nexus-test-common</artifactId>
+                <version>1.9.2.3</version>
+            </dependency>
+
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -61,59 +74,14 @@
 
     <build>
         <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>1.6</source>
-                <target>1.6</target>
-              <showWarnings>false</showWarnings>
-              <showDeprecation>false</showDeprecation>
-            </configuration>
-        </plugin>
             <plugin>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-component-metadata</artifactId>
-                <version>1.5.5</version>
-                <executions>
-                    <execution>
-                        <id>process-classes</id>
-                        <goals>
-                            <goal>generate-metadata</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>process-test-classes</id>
-                        <goals>
-                            <goal>generate-test-metadata</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.modello</groupId>
-                <artifactId>modello-maven-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>rut-auth-config.xml</id>
-                        <goals>
-                            <goal>java</goal>
-                            <goal>stax-reader</goal>
-                            <goal>stax-writer</goal>
-                            <goal>xsd</goal>
-                        </goals>
-                        <configuration>
-                            <version>1.0.0</version>
-                            <models>
-                                <model>src/main/mdo/rut-auth-config.xml</model>
-                            </models>
-                        </configuration>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <packageWithVersion>true</packageWithVersion>
-                    <useJava5>true</useJava5>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <showWarnings>false</showWarnings>
+                    <showDeprecation>false</showDeprecation>
                 </configuration>
             </plugin>
             <plugin>
@@ -129,7 +97,7 @@
                         <exclude>LICENSE</exclude>
                         <exclude>NOTICE</exclude>
                         <exclude>short-license-header.txt</exclude>
-                        <exclude>src/main/java/edu/wisc/nexus/auth/rut/RemoteUserNexusSecureHttpAuthenticationFilter.java</exclude>
+                        <exclude>nexus-rut-auth-filter/src/main/java/edu/wisc/nexus/auth/rut/RemoteUserNexusSecureHttpAuthenticationFilter.java</exclude>
                     </excludes>
                 </configuration>
             </plugin>
