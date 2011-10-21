@@ -104,6 +104,7 @@
                             <goal>aggregate</goal>
                         </goals>
                         <configuration>
+                            <sourceDirectory>${basedir}/src/main/resources/static/js</sourceDirectory>
                             <output>${project.build.directory}/classes/static/js/nexus-rut-auth-plugin-all.js</output>
                             <nosuffix>true</nosuffix>
                             <nomunge>true</nomunge>

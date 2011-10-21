@@ -34,6 +34,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.logging.Logger;
@@ -220,8 +221,8 @@ public abstract class AbstractRefreshingFileLoader<C> extends AbstractLogEnabled
 
             this.postLoad(configuration);
 
-            final int saveInterval = getRefreshInterval(configuration);
-            if (saveInterval > 0) {
+            final int refreshInterval = getRefreshInterval(configuration);
+            if (refreshInterval > 0) {
                 //Create a new task to periodically save the user cache
                 this.configurationRefresh = new TimerTask() {
                     @Override
@@ -230,7 +231,7 @@ public abstract class AbstractRefreshingFileLoader<C> extends AbstractLogEnabled
                     }
                 };
 
-                final long period = TimeUnit.SECONDS.toMillis(saveInterval);
+                final long period = TimeUnit.SECONDS.toMillis(refreshInterval);
                 this.configurationSaveTimer.schedule(this.configurationRefresh, period, period);
             }
         }
@@ -291,11 +292,24 @@ public abstract class AbstractRefreshingFileLoader<C> extends AbstractLogEnabled
         final Logger logger = this.getLogger();
         
         final File configurationFile = this.getConfigurationFile();
-        Writer w = null;
         try {
-            w = new FileWriter(configurationFile);
-            logger.info("Saving configuration file: " + configurationFile.getAbsolutePath());
-            this.writeConfiguration(w, configuration);
+            //Save to temp file then move into place to avoid breaking existing config file on error 
+            final File tempFile = File.createTempFile(configurationFile.getName() + ".", ".tmp", configurationFile.getParentFile());
+            
+            Writer w = null;
+            try {
+                w = new FileWriter(tempFile);
+                logger.info("Saving configuration file: " + configurationFile.getAbsolutePath());
+                this.writeConfiguration(w, configuration);
+            }
+            finally {
+                IOUtils.closeQuietly(w);
+            }
+            
+            //Move dance to avoid losing data
+            FileUtils.deleteQuietly(configurationFile);
+            FileUtils.moveFile(tempFile, configurationFile);
+            FileUtils.deleteQuietly(tempFile);
         }
         catch (final FileNotFoundException e) {
             logger.warn("Configuration file does not exist: " + configurationFile.getAbsolutePath() + ", nothing will be saved", e);
@@ -305,9 +319,8 @@ public abstract class AbstractRefreshingFileLoader<C> extends AbstractLogEnabled
             logger.warn("IOException while saving file: " + configurationFile.getAbsolutePath() + ", nothing will be saved", e);
             return;
         }
-        finally {
-            IOUtils.closeQuietly(w);
-        }
+        
+        
 
         this.lastModified = configurationFile.lastModified();
         this.lastSize = configurationFile.length();

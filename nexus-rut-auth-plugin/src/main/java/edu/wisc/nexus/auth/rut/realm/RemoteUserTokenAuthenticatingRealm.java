@@ -97,6 +97,11 @@ public class RemoteUserTokenAuthenticatingRealm extends AuthorizingRealm {
                 throw new AuthenticationException(RemoteUserAuthenticationToken.class.getSimpleName() + " provided but no remoteUser value is set");
             }
             
+            if (!this.userDao.userExists(remoteUser)) {
+                //Create the missing remote_user in the DAO
+                this.userDao.createUser(remoteUser);
+            }
+            
             logger.debug("Returning RemoteUserAuthenticationInfo for {}", remoteUser);
             return new RemoteUserAuthenticationInfo(remoteUser, getName());
         }
@@ -104,7 +109,7 @@ public class RemoteUserTokenAuthenticatingRealm extends AuthorizingRealm {
         // Handle token auth second
         if (UsernamePasswordToken.class.isAssignableFrom(token.getClass())) {
             final String userId = ((UsernamePasswordToken) token).getUsername();
-            final String password = this.userDao.getUserPassword(userId);
+            final String password = this.userDao.getUserPasswordToken(userId);
             if (password == null) {
                 return null;
             }
@@ -131,7 +136,7 @@ public class RemoteUserTokenAuthenticatingRealm extends AuthorizingRealm {
         
         final String userId = (String) principals.iterator().next();
         
-        final String password = this.userDao.getUserPassword(userId);
+        final String password = this.userDao.getUserPasswordToken(userId);
         if (password == null) {
             return null;
         }

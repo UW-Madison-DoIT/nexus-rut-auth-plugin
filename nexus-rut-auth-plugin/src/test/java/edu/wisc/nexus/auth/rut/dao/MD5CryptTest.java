@@ -16,31 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 package edu.wisc.nexus.auth.rut.dao;
 
-import java.util.Set;
+import org.junit.Test;
 
-import org.sonatype.security.usermanagement.User;
-import org.sonatype.security.usermanagement.UserNotFoundException;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Eric Dalquist
- * @version $Revision: 253 $
+ * @version $Revision$
  */
-public interface UserDao {
-    /**
-     * Gets the password for the user
-     */
-    String getUserPasswordToken(String userId);
+public class MD5CryptTest {
+    @Test
+    public void testKnownSaltApacheCrypt() {
+        final String encrypted = MD5Crypt.apacheCrypt("RJDgUmkY6YtCGf5a", "/njf5ImR");
+        assertEquals("$apr1$/njf5ImR$wfW0I6J6SIiw0PtuWdwPk1", encrypted);
+        
+        assertTrue(MD5Crypt.verifyPassword("RJDgUmkY6YtCGf5a", encrypted));
+    }
     
-    Set<String> listUserIds();
-
-    Set<User> listUsers();
-    
-    User getUser(String userId) throws UserNotFoundException;
-    
-    void createUser(String userId);
-    
-    boolean userExists(String userId);
+    @Test
+    public void testUnknownSaltApacheCrypt() {
+        final String encrypted = MD5Crypt.apacheCrypt("RJDgUmkY6YtCGf5a");
+        
+        assertTrue(MD5Crypt.verifyPassword("RJDgUmkY6YtCGf5a", encrypted));
+    }
 }

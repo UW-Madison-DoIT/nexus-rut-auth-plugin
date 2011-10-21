@@ -41,7 +41,7 @@ import org.sonatype.security.realms.tools.ConfigurationManager;
  * @version $Revision$
  */
 public abstract class NexusSecurityTestCaseSupport extends PlexusTestCaseSupport {
-    private static final File appConfDir = new File("target/app-conf");
+    private final File appConfDir = new File("target/app-conf");
 
     /**
      * Subclasses should override if they need to copy files into the test application config directory
@@ -90,22 +90,30 @@ public abstract class NexusSecurityTestCaseSupport extends PlexusTestCaseSupport
     }
     
     protected final void copyFile(String filename) throws IOException {
-        copyFile(null, filename);
+        copyFile(appConfDir, null, filename);
+    }
+    
+    protected final void copyFile(String dir, String filename) throws IOException {
+        copyFile(appConfDir, dir, filename);
+    }
+    
+    public static void copyFile(File destDir, String filename) throws IOException {
+        copyFile(destDir, null, filename);
     }
 
-    protected final void copyFile(String dir, String filename) throws IOException {
+    public static void copyFile(File destDir, String dir, String filename) throws IOException {
         final File confDir;
         if (dir != null && dir.length() > 0) {
             if (!dir.endsWith("/")) {
                 dir = dir + "/";
             }
     
-            confDir = new File(appConfDir, dir);
+            confDir = new File(destDir, dir);
             confDir.mkdirs();
         }
         else {
             dir = "";
-            confDir = appConfDir;
+            confDir = destDir;
         }
     
         final Thread currentThread = Thread.currentThread();

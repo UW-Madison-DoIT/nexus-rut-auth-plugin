@@ -63,27 +63,6 @@
                     <required>true</required>
                 </field>
                 <field>
-                    <name>userRegex</name>
-                    <version>1.0.0+</version>
-                    <description>Regular expression that extracts username and password token.</description>
-                    <type>String</type>
-                    <defaultValue>^([^:]*):[^:]*:([^:]*)$</defaultValue>
-                </field>
-                <field>
-                    <name>userRegexGroup</name>
-                    <version>1.0.0+</version>
-                    <description>The regular expression group number which contains the username for the userRegex.</description>
-                    <type>int</type>
-                    <defaultValue>1</defaultValue>
-                </field>
-                <field>
-                    <name>passwordRegexGroup</name>
-                    <version>1.0.0+</version>
-                    <description>The regular expression group number which contains the password for the userRegex.</description>
-                    <type>int</type>
-                    <defaultValue>2</defaultValue>
-                </field>
-                <field>
                     <name>refreshInterval</name>
                     <version>1.0.0+</version>
                     <description>Time in seconds between refreshing the configuration and the userFile.</description>

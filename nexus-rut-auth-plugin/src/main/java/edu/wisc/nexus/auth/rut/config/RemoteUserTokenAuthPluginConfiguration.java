@@ -20,7 +20,6 @@ package edu.wisc.nexus.auth.rut.config;
 
 import java.io.File;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import org.sonatype.security.authorization.Role;
 import org.sonatype.security.usermanagement.RoleIdentifier;
@@ -34,24 +33,6 @@ public interface RemoteUserTokenAuthPluginConfiguration {
      * File to load usernames and passwords from.
      */
     public File getUserFile();
-
-    /**
-     * Regular expression that extracts the username and password
-     * from one line of the passwordFile.
-     */
-    public Pattern getUserRegex();
-    
-    /**
-     * The regular expression group number which contains the
-     * username for the userPasswordRegex.
-     */
-    public int getUserRegexGroup();
-    
-    /**
-     * The regular expression group number which contains the
-     * password for the userPasswordRegex.
-     */
-    public int getPasswordRegexGroup();
     
     /**
      * (Optional) Domain to append to usernames to make them into

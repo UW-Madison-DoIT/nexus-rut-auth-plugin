@@ -24,7 +24,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -48,9 +47,6 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
 
     //Thread safe vars
     private volatile File userFile;
-    private volatile Pattern userPasswordRegex;
-    private volatile int userRegexGroup;
-    private volatile int passwordRegexGroup;
     private volatile String emailDomain;
     private volatile Set<String> defaultRoleIds;
     private volatile Set<RoleIdentifier> defaultRoleIdentifiers;
@@ -60,7 +56,7 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
     public DefaultRemoteUserTokenAuthPluginConfiguration() {
         super("RUTAuthPluginConfiguration");
     }
-
+    
     /* (non-Javadoc)
      * @see edu.wisc.nexus.auth.token.config.TokenAuthPluginConfiguration#getUserFile()
      */
@@ -69,30 +65,6 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
         return this.userFile;
     }
 
-    /* (non-Javadoc)
-     * @see edu.wisc.nexus.auth.token.config.TokenAuthPluginConfiguration#getUserRegex()
-     */
-    @Override
-    public Pattern getUserRegex() {
-        return this.userPasswordRegex;
-    }
-
-    /* (non-Javadoc)
-     * @see edu.wisc.nexus.auth.token.config.TokenAuthPluginConfiguration#getUserRegexGroup()
-     */
-    @Override
-    public int getUserRegexGroup() {
-        return this.userRegexGroup;
-    }
-
-    /* (non-Javadoc)
-     * @see edu.wisc.nexus.auth.token.config.TokenAuthPluginConfiguration#getPasswordRegexGroup()
-     */
-    @Override
-    public int getPasswordRegexGroup() {
-        return this.passwordRegexGroup;
-    }
-    
     /* (non-Javadoc)
      * @see edu.wisc.nexus.auth.rut.config.RemoteUserTokenAuthPluginConfiguration#getEmailDomain()
      */
@@ -193,11 +165,6 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
         else {
             this.userFile = new File(this.configurationFile.getParentFile(), userFile);
         }
-        
-        //User/Password regex info
-        this.userPasswordRegex = Pattern.compile(configuration.getUserRegex());
-        this.userRegexGroup = configuration.getUserRegexGroup();
-        this.passwordRegexGroup = configuration.getPasswordRegexGroup();
         
         //Optional email domain
         this.emailDomain = configuration.getEmailDomain();
