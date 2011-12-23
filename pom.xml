@@ -118,13 +118,14 @@
                     <configuration>
                         <basedir>${basedir}</basedir>
                         <header>https://source.jasig.org/licenses/short-license-header.txt</header>
-                        <aggregate>true</aggregate>
+                        <aggregate>false</aggregate>
                         <strictCheck>true</strictCheck>
                         <excludes>
                             <exclude>LICENSE</exclude>
                             <exclude>NOTICE</exclude>
                             <exclude>short-license-header.txt</exclude>
-                            <exclude>nexus-rut-auth-filter/src/main/java/edu/wisc/nexus/auth/rut/RemoteUserNexusSecureHttpAuthenticationFilter.java</exclude>
+                            <exclude>src/main/java/edu/wisc/nexus/auth/rut/RemoteUserNexusSecureHttpAuthenticationFilter.java</exclude>
+                            <exclude>src/main/java/edu/wisc/nexus/auth/rut/dao/MD5Crypt.java</exclude>
                         </excludes>
                     </configuration>
                 </plugin>
