@@ -85,7 +85,6 @@ This project includes:
   Nexus Plugins : Plugin API under GNU General Public License
   nexus-rut-auth-filter under Apache License Version 2.0
   nexus-rut-auth-plugin under Apache License Version 2.0
-  nexus-rut-auth-plugin-parent under Apache License Version 2.0
   Objenesis under MIT License
   org.json:org.json under The JSON License
   oro under Apache License, Version 2.0
