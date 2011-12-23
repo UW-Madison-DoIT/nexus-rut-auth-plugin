@@ -41,6 +41,16 @@ public interface RemoteUserTokenAuthPluginConfiguration {
     public String getEmailDomain();
     
     /**
+     * The URL to redirect unauthenticated users that wish to use remote user authn
+     */
+    public String getRemoteUserLoginRedirectUrl();
+    
+    /**
+     * The URL to redirect remote-user authenticated users that wish to logout
+     */
+    public String getRemoteUserLogoutRedirectUrl();
+    
+    /**
      * Default roleIds
      */
     public Set<String> getDefaultRolesIds();

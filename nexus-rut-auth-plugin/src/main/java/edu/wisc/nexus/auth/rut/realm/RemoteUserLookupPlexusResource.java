@@ -20,8 +20,10 @@
 package edu.wisc.nexus.auth.rut.realm;
 
 import java.io.Serializable;
-import java.util.Map;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -29,7 +31,6 @@ import javax.ws.rs.Produces;
 
 import org.codehaus.plexus.component.annotations.Component;
 import org.restlet.Context;
-import org.restlet.data.Form;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
 import org.restlet.resource.ResourceException;
@@ -37,6 +38,10 @@ import org.restlet.resource.Variant;
 import org.sonatype.plexus.rest.resource.AbstractPlexusResource;
 import org.sonatype.plexus.rest.resource.PathProtectionDescriptor;
 import org.sonatype.plexus.rest.resource.PlexusResource;
+
+import com.noelios.restlet.ext.servlet.ServletCall;
+import com.noelios.restlet.http.HttpCall;
+import com.noelios.restlet.http.HttpRequest;
 
 /**
  * @author Eric Dalquist
@@ -48,7 +53,7 @@ import org.sonatype.plexus.rest.resource.PlexusResource;
 @Consumes( { "application/xml", "application/json" } )
 public class RemoteUserLookupPlexusResource extends AbstractPlexusResource {
     public static final String RESOURCE_URI = "/rut/remote_user"; 
-
+    
     /* (non-Javadoc)
      * @see org.sonatype.plexus.rest.resource.AbstractPlexusResource#getResourceUri()
      */
@@ -79,12 +84,25 @@ public class RemoteUserLookupPlexusResource extends AbstractPlexusResource {
     @Override
     @PUT
     public Object get(Context context, Request request, Response response, Variant variant) throws ResourceException {
+        //TODO would love a RESTLET specific way to get at the actual remote_user value :(
         final RemoteUserResource remoteUserResource = new RemoteUserResource();
         
-        final Map<String, Object> attributes = request.getAttributes();
-        final Form headers = (Form)attributes.get("org.restlet.http.headers");
-        String remoteUser = headers.getFirstValue("REMOTE_USER");
-        remoteUserResource.setRemoteUser(remoteUser);
+        if (request instanceof HttpRequest) {
+            final HttpCall httpCall = ((HttpRequest) request).getHttpCall();
+            if (httpCall instanceof ServletCall) {
+                HttpServletRequest httpServletRequest = ((ServletCall) httpCall).getRequest();
+                while (httpServletRequest instanceof HttpServletRequestWrapper) {
+                    final ServletRequest servletRequest = ((HttpServletRequestWrapper)httpServletRequest).getRequest();
+                    if (!(servletRequest instanceof HttpServletRequest)) {
+                        break;
+                    }
+                    
+                    httpServletRequest = (HttpServletRequest)servletRequest;
+                }
+                final String remoteUser = httpServletRequest.getRemoteUser();
+                remoteUserResource.setRemoteUser(remoteUser);
+            }
+        }
         
         return remoteUserResource;
     }
@@ -94,34 +112,12 @@ public class RemoteUserLookupPlexusResource extends AbstractPlexusResource {
     @javax.xml.bind.annotation.XmlAccessorType(javax.xml.bind.annotation.XmlAccessType.FIELD)
     public static class RemoteUserResource implements Serializable {
         private String remoteUser;
-        private String loginUrl = "https://login.wisc.edu";
 
-        /**
-         * @return the remoteUser
-         */
         public String getRemoteUser() {
             return remoteUser;
         }
-
-        /**
-         * @param remoteUser the remoteUser to set
-         */
         public void setRemoteUser(String remoteUser) {
             this.remoteUser = remoteUser;
-        }
-
-        /**
-         * @return the loginUrl
-         */
-        public String getLoginUrl() {
-            return loginUrl;
-        }
-
-        /**
-         * @param loginUrl the loginUrl to set
-         */
-        public void setLoginUrl(String loginUrl) {
-            this.loginUrl = loginUrl;
         }
     }
 }

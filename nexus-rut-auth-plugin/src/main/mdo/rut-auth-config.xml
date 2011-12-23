@@ -76,6 +76,18 @@
                     <type>String</type>
                 </field>
                 <field>
+                    <name>remoteUserLoginRedirectUrl</name>
+                    <version>1.0.0+</version>
+                    <description>URL to redirect users to which forces remote-user based authentication.</description>
+                    <type>String</type>
+                </field>
+                <field>
+                    <name>remoteUserLogoutRedirectUrl</name>
+                    <version>1.0.0+</version>
+                    <description>URL to redirect remote-user authenticated users to force logout.</description>
+                    <type>String</type>
+                </field>
+                <field>
                     <name>defaultRoles</name>
                     <version>1.0.0+</version>
                     <description>The roles that all authenticated users are placed in.</description>

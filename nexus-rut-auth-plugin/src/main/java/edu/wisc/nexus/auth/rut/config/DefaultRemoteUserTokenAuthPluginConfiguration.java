@@ -48,6 +48,8 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
     //Thread safe vars
     private volatile File userFile;
     private volatile String emailDomain;
+    private volatile String remoteUserLoginRedirectUrl;
+    private volatile String remoteUserLogoutRedirectUrl;
     private volatile Set<String> defaultRoleIds;
     private volatile Set<RoleIdentifier> defaultRoleIdentifiers;
     private volatile Set<Role> defaultRoles;
@@ -71,6 +73,16 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
     @Override
     public String getEmailDomain() {
         return this.emailDomain;
+    }
+    
+    @Override
+    public String getRemoteUserLoginRedirectUrl() {
+        return this.remoteUserLoginRedirectUrl;
+    }
+    
+    @Override
+    public String getRemoteUserLogoutRedirectUrl() {
+        return this.remoteUserLogoutRedirectUrl;
     }
 
     /* (non-Javadoc)
@@ -168,6 +180,12 @@ public class DefaultRemoteUserTokenAuthPluginConfiguration extends AbstractRefre
         
         //Optional email domain
         this.emailDomain = configuration.getEmailDomain();
+
+        //Remote user login url
+        this.remoteUserLoginRedirectUrl = configuration.getRemoteUserLoginRedirectUrl();
+        
+        //Remote user logout url
+        this.remoteUserLogoutRedirectUrl = configuration.getRemoteUserLogoutRedirectUrl();
         
         //Grab the new refresh interval
         this.refreshInterval = configuration.getRefreshInterval();
