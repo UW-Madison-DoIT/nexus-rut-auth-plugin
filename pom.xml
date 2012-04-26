@@ -2,16 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.nexus.plugins</groupId>
-        <artifactId>nexus-plugins-parent</artifactId>
-        <version>6</version>
-    </parent>
-
     <groupId>edu.wisc</groupId>
     <artifactId>nexus-rut-auth-plugin-parent</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
     
     <licenses>
         <license>
@@ -32,6 +30,10 @@
             <id>sonatype-third-party</id>
             <url>http://repository.sonatype.org/content/repositories/third-party</url>
         </repository>
+        <repository>
+            <id>sonatype-releases</id>
+            <url>https://repository.sonatype.org/content/repositories/releases</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -48,13 +50,29 @@
         <module>nexus-rut-auth-filter</module>
         <module>nexus-rut-auth-plugin</module>
     </modules>
+    
+    <properties>
+        <nexus.version>2.0.4</nexus.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.sonatype.nexus</groupId>
+                <artifactId>nexus-plugin-api</artifactId>
+                <version>${nexus.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.sonatype.nexus</groupId>
+                <artifactId>nexus-plugin-test-api</artifactId>
+                <version>${nexus.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.sonatype.nexus</groupId>
                 <artifactId>nexus-rest-api</artifactId>
-                <version>1.9.2.4</version>
+                <version>${nexus.version}</version>
                 <exclusions>
                     <exclusion>
                         <artifactId>commons-logging-api</artifactId>
@@ -65,7 +83,7 @@
             <dependency>
                 <groupId>org.sonatype.nexus</groupId>
                 <artifactId>nexus-test-common</artifactId>
-                <version>1.9.2.4</version>
+                <version>${nexus.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -147,6 +165,57 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+              <artifactId>maven-enforcer-plugin</artifactId>
+              <version>1.0.1</version>
+              <executions>
+                  <execution>
+                      <goals>
+                          <goal>enforce</goal>
+                      </goals>
+                      <!-- we don't need these until JUST BEFORE integration testing, so 
+                        moving to a later phase to get out of the way of m2eclipse. -->
+                      <phase>package</phase>
+                      <id>enforce</id>
+                      <configuration>
+                          <rules>
+                              <bannedDependencies>
+                                  <excludes>
+                                      <exclude>velocity:velocity:jar:1.4</exclude>
+                                      <exclude>velocity:velocity-dep:jar:1.4</exclude>
+                                  </excludes>
+                                  <message>
+                                      Velocity 1.4 is banned, Velocity 1.5 should be used! You probably added
+                                      a dependency that is missing the exclusions.
+                                  </message>
+                              </bannedDependencies>
+                              <bannedDependencies>
+                                  <excludes>
+                                      <exclude>commons-logging:*</exclude>
+                                  </excludes>
+                                  <message>
+                                      commons-logging conflicts with slf4j. You probably added a dependency that is
+                                      missing the exclusions.
+                                  </message>
+                              </bannedDependencies>
+                              <bannedDependencies>
+                                  <excludes>
+                                      <exclude>*:plexus-component-api</exclude>
+                                  </excludes>
+                                  <message>
+                                      plexus-component-api conflicts with newer plexus-container-default. You probably
+                                      added a dependency that is plexus component made with
+                                      older plexus container.
+                                  </message>
+                              </bannedDependencies>
+                          </rules>
+                          <fail>true</fail>
+                      </configuration>
+                  </execution>
+              </executions>
+            </plugin>
+        </plugins>
     </build>
     
     <profiles>
