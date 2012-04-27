@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>edu.wisc</groupId>
+        <groupId>edu.wisc.nexus.plugin</groupId>
         <artifactId>nexus-rut-auth-plugin-parent</artifactId>
         <version>1.0.2-SNAPSHOT</version>
     </parent>

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>edu.wisc.doit.code</groupId>
+        <artifactId>shared-tools-public-parent</artifactId>
+        <version>3</version>
+    </parent>
 
-    <groupId>edu.wisc</groupId>
+    <groupId>edu.wisc.nexus.plugin</groupId>
     <artifactId>nexus-rut-auth-plugin-parent</artifactId>
     <version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -20,12 +26,16 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git://github.com/edalquist/nexus-rut-auth-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:edalquist/nexus-rut-auth-plugin.git</developerConnection>
-        <url>https://github.com/edalquist/nexus-rut-auth-plugin</url>
+        <connection>scm:git:git://github.com/UW-Madison-DoIT/nexus-rut-auth-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:UW-Madison-DoIT/nexus-rut-auth-plugin.git</developerConnection>
+        <url>https://github.com/UW-Madison-DoIT/nexus-rut-auth-plugin</url>
     </scm>
 
     <repositories>
+        <repository>
+            <id>code.doit-public-releases</id>
+            <url>https://code.doit.wisc.edu/maven/content/repositories/public-releases/</url>
+        </repository>
         <repository>
             <id>sonatype-third-party</id>
             <url>http://repository.sonatype.org/content/repositories/third-party</url>
