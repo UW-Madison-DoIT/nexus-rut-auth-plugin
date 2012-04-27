@@ -43,7 +43,6 @@ import com.google.common.collect.Iterators;
  * @version $Revision$
  */
 public class RemoteUserTestingFilter extends AbstractFilter {
-    
     private File remoteUserFile;
 
     /* (non-Javadoc)
@@ -63,64 +62,60 @@ public class RemoteUserTestingFilter extends AbstractFilter {
         final String remoteUser = StringUtils.trimToNull(FileUtils.readFileToString(this.remoteUserFile));
         
         if (remoteUser != null) {
-            request = new HttpServletRequestWrapper((HttpServletRequest) request) {
-                /* (non-Javadoc)
-                 * @see javax.servlet.http.HttpServletRequestWrapper#getRemoteUser()
-                 */
-                @Override
-                public String getRemoteUser() {
-                    return remoteUser;
-                }
-
-                /* (non-Javadoc)
-                 * @see javax.servlet.http.HttpServletRequestWrapper#getHeader(java.lang.String)
-                 */
-                @Override
-                public String getHeader(String name) {
-                    if ("REMOTE_USER".equals(name)) {
-                        return remoteUser;
-                    }
-                    return super.getHeader(name);
-                }
-
-                /* (non-Javadoc)
-                 * @see javax.servlet.http.HttpServletRequestWrapper#getHeaders(java.lang.String)
-                 */
-                @Override
-                public Enumeration<String> getHeaders(String name) {
-                    if ("REMOTE_USER".equals(name)) {
-                        return Iterators.asEnumeration(Collections.singleton(remoteUser).iterator());
-                    }
-                    return super.getHeaders(name);
-                }
-
-                /* (non-Javadoc)
-                 * @see javax.servlet.http.HttpServletRequestWrapper#getHeaderNames()
-                 */
-                @Override
-                public Enumeration<String> getHeaderNames() {
-                    final LinkedHashSet<String> headers = new LinkedHashSet<String>();
-                    for (final Enumeration<String> headersEnum = super.getHeaderNames(); headersEnum.hasMoreElements();) {
-                        headers.add(headersEnum.nextElement());
-                    }
-                    headers.add("REMOTE_USER");
-                    
-                    return Iterators.asEnumeration(headers.iterator());
-                }
-
-                /* (non-Javadoc)
-                 * @see javax.servlet.http.HttpServletRequestWrapper#getIntHeader(java.lang.String)
-                 */
-                @Override
-                public int getIntHeader(String name) {
-                    if ("REMOTE_USER".equals(name)) {
-                        return Integer.valueOf(remoteUser);
-                    }
-                    return super.getIntHeader(name);
-                }
-            };
+            request = new RemoteUserHttpServletRequestWrapper((HttpServletRequest) request, remoteUser);
         }
         
         chain.doFilter(request, response);
+    }
+    
+    public static final class RemoteUserHttpServletRequestWrapper extends HttpServletRequestWrapper {
+        private final String remoteUser;
+
+        public RemoteUserHttpServletRequestWrapper(HttpServletRequest request, String remoteUser) {
+            super(request);
+            this.remoteUser = remoteUser;
+        }
+
+        @Override
+        public String getRemoteUser() {
+            return remoteUser;
+        }
+
+        @Override
+        public String getHeader(String name) {
+            if ("REMOTE_USER".equals(name)) {
+                return remoteUser;
+            }
+            return super.getHeader(name);
+        }
+
+        @SuppressWarnings("rawtypes")
+        @Override
+        public Enumeration getHeaders(String name) {
+            if ("REMOTE_USER".equals(name)) {
+                return Iterators.asEnumeration(Collections.singleton(remoteUser).iterator());
+            }
+            return super.getHeaders(name);
+        }
+
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @Override
+        public Enumeration getHeaderNames() {
+            final LinkedHashSet<String> headers = new LinkedHashSet<String>();
+            for (final Enumeration<String> headersEnum = super.getHeaderNames(); headersEnum.hasMoreElements();) {
+                headers.add(headersEnum.nextElement());
+            }
+            headers.add("REMOTE_USER");
+            
+            return Iterators.asEnumeration(headers.iterator());
+        }
+
+        @Override
+        public int getIntHeader(String name) {
+            if ("REMOTE_USER".equals(name)) {
+                return Integer.valueOf(remoteUser);
+            }
+            return super.getIntHeader(name);
+        }
     }
 }

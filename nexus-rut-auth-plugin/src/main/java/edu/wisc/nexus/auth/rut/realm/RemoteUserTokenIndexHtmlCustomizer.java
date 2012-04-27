@@ -33,13 +33,16 @@ import org.sonatype.nexus.plugins.rest.NexusIndexHtmlCustomizer;
 public class RemoteUserTokenIndexHtmlCustomizer extends AbstractNexusIndexHtmlCustomizer {
     @Override
     public String getPostHeadContribution(Map<String, Object> ctx) {
+        String scriptName = "nexus-rut-auth-plugin-all.min.js";
+        
         String version = getVersionFromJarFile("/META-INF/maven/edu.wisc/nexus-rut-auth-plugin/pom.properties");
-        if (version.endsWith("-SNAPSHOT")) {
+        if (version != null && version.endsWith("-SNAPSHOT")) {
             //Get around caching on snapshot dev
             version = Long.toString(System.currentTimeMillis());
+            scriptName = "nexus-rut-auth-plugin-all.js";
         }
 
-        return "<script src=\"static/js/nexus-rut-auth-plugin-all.js" + (version == null ? "" : "?" + version)
+        return "<script src=\"static/js/" + scriptName + (version == null ? "" : "?" + version)
                 + "\" type=\"text/javascript\" charset=\"utf-8\"></script>";
 
     }

@@ -43,6 +43,8 @@ import com.noelios.restlet.ext.servlet.ServletCall;
 import com.noelios.restlet.http.HttpCall;
 import com.noelios.restlet.http.HttpRequest;
 
+import edu.wisc.nexus.auth.rut.RemoteUserTestingFilter.RemoteUserHttpServletRequestWrapper;
+
 /**
  * @author Eric Dalquist
  * @version $Revision$
@@ -91,7 +93,7 @@ public class RemoteUserLookupPlexusResource extends AbstractPlexusResource {
             final HttpCall httpCall = ((HttpRequest) request).getHttpCall();
             if (httpCall instanceof ServletCall) {
                 HttpServletRequest httpServletRequest = ((ServletCall) httpCall).getRequest();
-                while (httpServletRequest instanceof HttpServletRequestWrapper) {
+                while (httpServletRequest instanceof HttpServletRequestWrapper && !(httpServletRequest instanceof RemoteUserHttpServletRequestWrapper)) {
                     final ServletRequest servletRequest = ((HttpServletRequestWrapper)httpServletRequest).getRequest();
                     if (!(servletRequest instanceof HttpServletRequest)) {
                         break;

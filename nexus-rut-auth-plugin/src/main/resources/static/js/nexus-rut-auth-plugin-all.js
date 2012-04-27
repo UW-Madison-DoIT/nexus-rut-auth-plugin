@@ -40,7 +40,34 @@
                 });
     		},
     		
-    		doLogin : function(redirect) {
+    		checkRemoteUser : function() {
+                Ext.Ajax.request({
+                    scope : this,
+                    method : 'GET',
+                    url : Sonatype.config.servicePath + "/rut/remote_user",
+                    callback : function(options, success, response) {
+                        var responseData = Ext.decode( response.responseText );
+                        
+                        /*
+                         * if remote user and user not auth'd - doLogin
+                         * if remote user and auth'd - noop
+                         * if no remote user and not auth'd - noop 
+                         * if no remote user and auth'd doLogout
+                         */
+                        
+                        if (responseData.remoteUser && !Sonatype.user.curr.isLoggedIn) {
+                            Sonatype.utils.doLogin(null, response.remoteUser, Sonatype.repoServer.RUTConfig.loggedInUserSource);
+                        }
+                        else if (!responseData.remoteUser && Sonatype.user.curr.isLoggedIn) {
+                            Sonatype.repoServer.RUTHandler.doLogout();
+                        }
+                        
+                        setTimeout("Sonatype.repoServer.RUTHandler.checkRemoteUser()", 30000);
+                    }
+                });
+    		},
+    		
+    		doLogin : function() {
                 Ext.Ajax.request({
                 	scope : this,
                     method : 'GET',
@@ -50,7 +77,7 @@
                         if (responseData.remoteUser) {
                         	Sonatype.utils.doLogin(null, response.remoteUser, Sonatype.repoServer.RUTConfig.loggedInUserSource);
                         }
-                        else if (redirect && Sonatype.repoServer.RUTConfig.loginUrl != undefined) {
+                        else if (Sonatype.repoServer.RUTConfig.loginUrl != undefined) {
                         	var loginUrl = Sonatype.repoServer.RUTConfig.loginUrl;
                         	if (loginUrl.indexOf("/") == 0) {
                         		loginUrl = Sonatype.config.host + loginUrl;
@@ -91,7 +118,7 @@
 	                alert("SHOULD NEVER BE CALLED WHEN LOGGED IN")
 	            }
 	            else {
-	            	Sonatype.repoServer.RUTHandler.doLogin(true);
+	            	Sonatype.repoServer.RUTHandler.doLogin();
 	            }
 	        },
 	        
@@ -135,7 +162,7 @@ Ext.apply(Sonatype.headLinks.prototype, {
         linkEl.update('Log Out');
         this.setLogoutClickLink(linkEl);
         linkEl.setStyle({
-        	'color' : '#15428B',
+        	'color' : '#FAC500',
             'cursor' : 'pointer',
             'text-align' : 'right'
         });
@@ -145,7 +172,7 @@ Ext.apply(Sonatype.headLinks.prototype, {
         linkEl.update('NetID Log In');
         this.setRemoteUserClickLink(linkEl);
         linkEl.setStyle({
-            'color' : '#15428B',
+            'color' : '#FAC500',
             'cursor' : 'pointer',
             'text-align' : 'right'
         })
@@ -164,7 +191,7 @@ Ext.apply(Sonatype.headLinks.prototype, {
       linkEl.update('Token Log In');
       this.setClickLink(linkEl);
       linkEl.setStyle({
-          'color' : '#15428B',
+          'color' : '#FAC500',
           'cursor' : 'pointer',
           'text-align' : 'right'
       });
@@ -199,6 +226,6 @@ Ext.apply(Sonatype.headLinks.prototype, {
 //Check if the user is already logged in
 Ext.onReady(function() {
 	Sonatype.repoServer.RUTHandler.loadRutStatus();
-	Sonatype.repoServer.RUTHandler.doLogin(false);
+	Sonatype.repoServer.RUTHandler.checkRemoteUser();
 });
 
