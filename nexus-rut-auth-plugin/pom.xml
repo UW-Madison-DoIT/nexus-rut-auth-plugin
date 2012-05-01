@@ -10,6 +10,10 @@
 
     <artifactId>nexus-rut-auth-plugin</artifactId>
     <packaging>nexus-plugin</packaging>
+    
+    <properties>
+        <minifiedJsName>${project.artifactId}-all.min.js</minifiedJsName>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -31,6 +35,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
@@ -102,7 +112,7 @@
                         </goals>
                         <configuration>
                             <sourceDirectory>${basedir}/src/main/resources/static/js</sourceDirectory>
-                            <output>${project.build.directory}/classes/static/js/nexus-rut-auth-plugin-all.min.js</output>
+                            <output>${project.build.directory}/classes/static/js/${minifiedJsName}</output>
                             <nosuffix>true</nosuffix>
                             <nomunge>true</nomunge>
                             <jswarn>false</jswarn>
