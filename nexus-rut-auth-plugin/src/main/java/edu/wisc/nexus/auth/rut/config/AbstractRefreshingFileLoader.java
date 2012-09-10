@@ -82,7 +82,6 @@ public abstract class AbstractRefreshingFileLoader<C> extends AbstractLogEnabled
      * Save the configuration file using the config specific serializer, must be implemented if {@link #preSave(Object)} ever
      * returns true;
      */
-    @SuppressWarnings("unused")
     protected void writeConfiguration(Writer w, C configuration) throws IOException {
         throw new UnsupportedOperationException();
     }
@@ -95,7 +94,6 @@ public abstract class AbstractRefreshingFileLoader<C> extends AbstractLogEnabled
     /**
      * Called from {@link #initialize()} after the first time the configuration is loaded
      */
-    @SuppressWarnings("unused")
     protected void initializeInternal() throws InitializationException {
     }
 

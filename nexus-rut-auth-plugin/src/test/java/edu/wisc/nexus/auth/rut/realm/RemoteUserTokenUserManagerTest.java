@@ -18,8 +18,6 @@
  */
 package edu.wisc.nexus.auth.rut.realm;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Set;
 
 import junit.framework.Assert;
@@ -31,18 +29,6 @@ import org.sonatype.security.usermanagement.UserSearchCriteria;
 
 public class RemoteUserTokenUserManagerTest extends NexusSecurityTestCaseSupport {
     
-    /* (non-Javadoc)
-     * @see edu.wisc.nexus.auth.token.realm.NexusSecurityTestCaseSupport#copyTestConfig()
-     */
-    @Override
-    protected void copyTestConfig() throws FileNotFoundException, IOException {
-        copyFile("nexus.xml");
-        copyFile("security.xml");
-        copyFile("security-configuration.xml");
-        copyFile("conf", "rut-auth-plugin.xml");
-        copyFile("conf", "apache-passwd");
-    }
-
     @Test
     public void testLocatorLookup() throws Exception {
         // a bit of plexus back ground, this is how you can look up a component from a test class

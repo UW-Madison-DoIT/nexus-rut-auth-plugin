@@ -20,19 +20,16 @@
 package edu.wisc.nexus.auth.rut.realm;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.apache.commons.io.IOUtils;
-import org.codehaus.plexus.ContainerConfiguration;
-import org.codehaus.plexus.PlexusConstants;
-import org.codehaus.plexus.context.Context;
-import org.codehaus.plexus.util.FileUtils;
-import org.codehaus.plexus.util.io.RawInputStreamFacade;
-import org.sonatype.nexus.test.PlexusTestCaseSupport;
+import org.slf4j.bridge.SLF4JBridgeHandler;
+import org.sonatype.nexus.test.NexusTestSupport;
 import org.sonatype.security.SecuritySystem;
+import org.sonatype.security.guice.SecurityModule;
 import org.sonatype.security.realms.tools.ConfigurationManager;
+import org.sonatype.sisu.ehcache.CacheManagerComponent;
+
+import com.google.inject.Module;
 
 /**
  * Base class for setting up 
@@ -40,95 +37,54 @@ import org.sonatype.security.realms.tools.ConfigurationManager;
  * @author Eric Dalquist
  * @version $Revision$
  */
-public abstract class NexusSecurityTestCaseSupport extends PlexusTestCaseSupport {
-    private final File appConfDir = new File("target/app-conf");
+public abstract class NexusSecurityTestCaseSupport extends NexusTestSupport {
 
-    /**
-     * Subclasses should override if they need to copy files into the test application config directory
-     * @see #copyFile(String)
-     * @see #copyFile(String, String)
-     */
-    @SuppressWarnings("unused")
-    protected void copyTestConfig() throws FileNotFoundException, IOException {
-    }
-    
-    /**
-     * @return The name of the security XML file, defaults to security.xml
-     */
-    protected String getSecurityContextName() {
-        return "security.xml";
-    }
-    
-    protected void customizeContextInternal(Context ctx) {
+    @Override
+    protected Module[] getTestCustomModules() {
+        return new Module[] { new SecurityModule() };
     }
 
     @Override
-    protected final void customizeContext(Context ctx) {
-        ctx.put( "nexus-work", appConfDir.getAbsolutePath() );
-        ctx.put( "application-conf", appConfDir.getAbsolutePath() );
-        ctx.put( "security-xml-file", appConfDir.getAbsolutePath() + "/" + getSecurityContextName() );
+    protected void copyDefaultSecurityConfigToPlace() throws IOException {
+        copyResource("/security-configuration.xml", getSecurityConfiguration());
+        copyResource("/security.xml", getNexusSecurityConfiguration());
+    }
+    
+    protected String getRutAuthPluginConfiguration() {
+        return new File(getConfHomeDir(), "rut-auth-plugin.xml").getAbsolutePath();
+    }
+    
+    protected String getApachePasswdConfiguration() {
+        return new File(getConfHomeDir(), "apache-passwd").getAbsolutePath();
+    }
+
+    protected void copyDefaultRutConfigToPlace() throws IOException {
+        copyResource("/conf/rut-auth-plugin.xml", getRutAuthPluginConfiguration());
+        copyResource("/conf/apache-passwd", getApachePasswdConfiguration());
+    }
+    
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        // configure the logging
+        SLF4JBridgeHandler.install();
+
+        this.copyDefaultSecurityConfigToPlace();
+        this.copyDefaultRutConfigToPlace();
         
-        customizeContextInternal(ctx);
-    }
-    
-    @Override
-    protected final void customizeContainerConfiguration(ContainerConfiguration configuration) {
-        configuration.setAutoWiring( true );
-        configuration.setClassPathScanning( PlexusConstants.SCANNING_CACHE );
-    }
-
-    @Override
-    protected final void setUp() throws Exception {
-        appConfDir.mkdirs();
-        
-        // copy the test config
-        this.copyTestConfig();
-    
-        // restart security
+        // restart security system
         this.lookup( ConfigurationManager.class ).clearCache();
         this.lookup( SecuritySystem.class ).start();
     }
-    
-    protected final void copyFile(String filename) throws IOException {
-        copyFile(appConfDir, null, filename);
-    }
-    
-    protected final void copyFile(String dir, String filename) throws IOException {
-        copyFile(appConfDir, dir, filename);
-    }
-    
-    public static void copyFile(File destDir, String filename) throws IOException {
-        copyFile(destDir, null, filename);
-    }
 
-    public static void copyFile(File destDir, String dir, String filename) throws IOException {
-        final File confDir;
-        if (dir != null && dir.length() > 0) {
-            if (!dir.endsWith("/")) {
-                dir = dir + "/";
-            }
-    
-            confDir = new File(destDir, dir);
-            confDir.mkdirs();
-        }
-        else {
-            dir = "";
-            confDir = destDir;
-        }
-    
-        final Thread currentThread = Thread.currentThread();
-        final ClassLoader contextClassLoader = currentThread.getContextClassLoader();
-        final String src = dir + filename;
-        final InputStream fileStream = contextClassLoader.getResourceAsStream(src);
-        final File dest = new File(confDir, filename);
-        try {
-            FileUtils.copyStreamToFile(new RawInputStreamFacade(fileStream), dest);
-        }
-        catch (Exception e) {
-            throw new IOException("Failed to copy " + src + " to " + dest, e);
-        }
-        finally {
-            IOUtils.closeQuietly(fileStream);
-        }
+    @Override
+    protected void tearDown() throws Exception {
+        lookup(CacheManagerComponent.class).shutdown();
+
+        // configure the logging
+        SLF4JBridgeHandler.uninstall();
+
+        super.tearDown();
     }
 }

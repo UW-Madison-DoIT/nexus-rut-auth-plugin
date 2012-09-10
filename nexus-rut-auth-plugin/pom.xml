@@ -28,6 +28,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+          <groupId>javax.ws.rs</groupId>
+          <artifactId>jsr311-api</artifactId>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.sonatype.nexus</groupId>
             <artifactId>nexus-test-common</artifactId>
             <scope>test</scope>

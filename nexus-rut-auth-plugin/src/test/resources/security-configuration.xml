@@ -27,6 +27,6 @@
   <anonymousPassword>{i5aeiX5g0OAHxUuzkBpsaRrWscNUzf2SZ8NPpV63wmc=}</anonymousPassword>
   <realms>
     <realm>RUT</realm>
+    <realm>XmlAuthorizingRealm</realm>
   </realms>
-  <securityManager>nexus</securityManager>
 </security-configuration>

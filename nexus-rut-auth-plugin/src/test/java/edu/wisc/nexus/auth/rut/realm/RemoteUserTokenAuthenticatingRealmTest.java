@@ -18,9 +18,6 @@
  */
 package edu.wisc.nexus.auth.rut.realm;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import junit.framework.Assert;
 
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -35,17 +32,6 @@ import org.sonatype.security.authentication.AuthenticationException;
 import edu.wisc.nexus.auth.rut.RemoteUserAuthenticationToken;
 
 public class RemoteUserTokenAuthenticatingRealmTest extends NexusSecurityTestCaseSupport {
-    /* (non-Javadoc)
-     * @see edu.wisc.nexus.auth.token.realm.NexusSecurityTestCaseSupport#copyTestConfig()
-     */
-    @Override
-    protected void copyTestConfig() throws FileNotFoundException, IOException {
-        copyFile("nexus.xml");
-        copyFile("security.xml");
-        copyFile("security-configuration.xml");
-        copyFile("conf", "rut-auth-plugin.xml");
-        copyFile("conf", "apache-passwd");
-    }
 
     // Realm Tests
     /**
@@ -61,7 +47,7 @@ public class RemoteUserTokenAuthenticatingRealmTest extends NexusSecurityTestCas
 
         Assert.assertNotNull(authInfo);
     }
-    
+
     /**
      * Test authentication with a valid user and password.
      *
@@ -85,7 +71,7 @@ public class RemoteUserTokenAuthenticatingRealmTest extends NexusSecurityTestCas
     @Test
     public void testValidUserRole() throws Exception {
         SecuritySystem plexusSecurity = this.lookup(SecuritySystem.class);
-        
+
         //Auth first to cache username
         AuthenticationToken token = new RemoteUserAuthenticationToken("johnson");
         plexusSecurity.authenticate(token);
@@ -100,7 +86,7 @@ public class RemoteUserTokenAuthenticatingRealmTest extends NexusSecurityTestCas
      *
      * @throws Exception
      */
-    @Test(expected=AuthenticationException.class)
+    @Test(expected = AuthenticationException.class)
     public void testInvalidPasswordAuthentication() throws Exception {
         SecuritySystem plexusSecurity = this.lookup(SecuritySystem.class);
         AuthenticationToken token = new UsernamePasswordToken("dalquist", "INVALID");
@@ -113,7 +99,7 @@ public class RemoteUserTokenAuthenticatingRealmTest extends NexusSecurityTestCas
      *
      * @throws Exception
      */
-    @Test(expected=AuthenticationException.class)
+    @Test(expected = AuthenticationException.class)
     public void testInvalidUserAuthentication() throws Exception {
         SecuritySystem plexusSecurity = this.lookup(SecuritySystem.class);
         AuthenticationToken token = new UsernamePasswordToken("INVALID", "INVALID");
@@ -131,8 +117,7 @@ public class RemoteUserTokenAuthenticatingRealmTest extends NexusSecurityTestCas
     public void testPrivileges() throws Exception {
         SecuritySystem plexusSecurity = this.lookup(SecuritySystem.class);
 
-        PrincipalCollection principal = new SimplePrincipalCollection("dalquist", SecuritySystem.class
-                .getSimpleName());
+        PrincipalCollection principal = new SimplePrincipalCollection("dalquist", SecuritySystem.class.getSimpleName());
 
         // test one of the privleges that the admin user has
         Assert.assertFalse(plexusSecurity.isPermitted(principal, "nexus:repositories:create"));// Repositories -

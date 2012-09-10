@@ -25,30 +25,30 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Random;
 
-import org.junit.Ignore;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 import org.sonatype.nexus.logging.Slf4jPlexusLogger;
 
 import edu.wisc.nexus.auth.rut.config.RemoteUserTokenAuthPluginConfiguration;
-import edu.wisc.nexus.auth.rut.realm.NexusSecurityTestCaseSupport;
 
 /**
  * @author Eric Dalquist
  * @version $Revision$
  */
-@Ignore
 public class ApachePasswdUserDaoTest {
-    private final File tempTestDir = new File("target/ApachePasswdUserDaoTest");
-    
     @Test
     public void testCreateUser() throws Exception {
-        NexusSecurityTestCaseSupport.copyFile(tempTestDir, "conf", "apache-passwd");
+        final File passwdFile = new File(getBasedir(), "target/apache-passwd-home-" + new Random(System.currentTimeMillis()).nextLong() + "/apache-passwd");
+        passwdFile.getParentFile().mkdirs();
+        IOUtils.copy(this.getClass().getResourceAsStream("/conf/apache-passwd"), new FileOutputStream(passwdFile));
         
         final RemoteUserTokenAuthPluginConfiguration tokenAuthPluginConfiguration = mock(RemoteUserTokenAuthPluginConfiguration.class);
         
-        when(tokenAuthPluginConfiguration.getUserFile()).thenReturn(new File(tempTestDir, "conf/apache-passwd"));
+        when(tokenAuthPluginConfiguration.getUserFile()).thenReturn(passwdFile);
         when(tokenAuthPluginConfiguration.getRefreshInterval()).thenReturn(60);
         
         ApachePasswdUserDao tokenAuthUserDao = new ApachePasswdUserDao(tokenAuthPluginConfiguration);
@@ -58,5 +58,29 @@ public class ApachePasswdUserDaoTest {
         assertFalse(tokenAuthUserDao.userExists("dalquista"));
         tokenAuthUserDao.createUser("dalquista");
         assertTrue(tokenAuthUserDao.userExists("dalquista"));
+    }
+    
+    public static final String BASE_DIR_KEY = "basedir";
+    private static String basedir;
+
+    private String getBasedir() {
+        if (basedir != null) {
+            return basedir;
+        }
+
+        basedir = System.getProperty(BASE_DIR_KEY);
+
+        if (basedir == null) {
+            // Find the directory which this class is defined in.
+            final String path = getClass().getProtectionDomain().getCodeSource().getLocation().getFile();
+
+            // We expect the file to be in target/test-classes, so go up 2 dirs
+            final File baseDir = new File(path).getParentFile().getParentFile();
+
+            // Set ${basedir}
+            System.setProperty(BASE_DIR_KEY, baseDir.getPath());
+        }
+
+        return basedir;
     }
 }

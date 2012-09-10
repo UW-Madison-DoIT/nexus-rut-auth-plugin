@@ -14,14 +14,9 @@
             <pattern>%d{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
-<!-- 
-    <logger name="org.springframework" level="DEBUG"/>
-    <logger name="org.apache.commons.httpclient" level="DEBUG"/>
-    <logger name="httpclient.wire" level="DEBUG"/>
-    <logger name="edu.wisc" level="DEBUG"/>
-    <logger name="org.springframework.aop" level="DEBUG"/>
-    <logger name="edu.wisc.hr.dao.perfmon" level="TRACE"/>
- -->
+    <logger name="edu.wisc" level="TRACE">
+        <appender-ref ref="C" />
+    </logger>
     
     <root level="TRACE">
         <appender-ref ref="NULL" />
