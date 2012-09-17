@@ -16,102 +16,101 @@ specific language governing permissions and limitations
 under the License.
 
 This project includes:
-  Aether :: API under Eclipse Public License, Version 1.0
-  Aether :: Implementation under Eclipse Public License, Version 1.0
-  Aether :: SPI under Eclipse Public License, Version 1.0
-  Aether :: Utilities under Eclipse Public License, Version 1.0
   Apache Shiro :: Core under The Apache Software License, Version 2.0
   Apache Shiro :: Support :: EHCache under The Apache Software License, Version 2.0
   Apache Shiro :: Web under The Apache Software License, Version 2.0
   Apache Velocity under The Apache Software License, Version 2.0
   Apache WebServices Common Utilities under The Apache Software License, Version 2.0
-  Apache XBean :: Reflect under The Apache Software License, Version 2.0
   Apache XML-RPC Client Library under The Apache Software License, Version 2.0
   Apache XML-RPC Common Library under The Apache Software License, Version 2.0
-  async-http-client under Apache License 2.0
-  Base Configuration under Apache Public License 2.0
-  CLI under Apache License, Version 2.0
-  com.carrotsearch:junit-benchmarks under Apache License, Version 2.0
+  Asynchronous Http Client under Apache License 2.0
+  Base Configuration under Apache License, Version 2.0
   Commons Codec under The Apache Software License, Version 2.0
   Commons FileUpload under The Apache Software License, Version 2.0
   Commons IO under The Apache Software License, Version 2.0
   commons-beanutils-core under Apache License, Version 2.0
   commons-collections under Apache License, Version 2.0
+  Data Mapper for Jackson under The Apache Software License, Version 2.0
   Ehcache Core under The Apache Software License, Version 2.0
+  FindBugs-jsr305 under The Apache Software License, Version 2.0
   Google @inject under Apache License, Version 2.0
-  Google Collections Library under The Apache Software License, Version 2.0
-  Google Guice - Core Library under The Apache Software License, Version 2.0
-  Guava (Google Common Libraries) under The Apache Software License, Version 2.0
+  Gossip Bootstrap under The Apache Software License, Version 2.0
+  Gossip Support under The Apache Software License, Version 2.0
+  Guava: Google Core Libraries for Java under The Apache Software License, Version 2.0
   H2 Database Engine under The H2 License, Version 1.0
   Hamcrest Core under New BSD License
   Hamcrest library under New BSD License
   HTTP client connector under CDDL license or LGPL license
   HTTP server connector under CDDL license or LGPL license
   HttpClient under Apache License
+  HttpCore under Apache License
+  HttpMime under Apache License
+  IntelliJ IDEA Annotations under Apache License, Version 2.0
+  Jackson under The Apache Software License, Version 2.0
+  Java Diff under BSD
   JavaMail API under Common Development and Distribution License (CDDL) v1.0
-  javax.ws.rs:javax.ws.rs under Commons Development and Distribution License, Version 1.1
+  Javassist under MPL 1.1 or LGPL 2.1
+  JAX-RS API under COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
   JAX-RS implementation under CDDL license or LGPL license
   JCL 1.1.1 implemented over SLF4J under MIT License
-  jdom under Apache style license
-  Jetty Server under Apache License Version 2.0
-  Jetty SSLEngine under Apache License Version 2
-  Jetty Utilities under Apache License Version 2.0
+  JSON framework under The JSON License
   JUL to SLF4J bridge under MIT License
   JUnit under Common Public License Version 1.0
+  junit-ext under Apache License, Version 2.0
+  JUnitBenchmarks under Apache License, Version 2.0
   Lang under The Apache Software License, Version 2.0
-  Log4j under The Apache Software License, Version 2.0
-  Lucene Core under Apache 2
-  Maven :: Indexer Artifact Utils under The Apache Software License, Version 2.0
-  Maven Aether Provider under The Apache Software License, Version 2.0
+  Litmus Test Support under Apache License, Version 2.0
+  Logback Classic Module under Eclipse Public License - v 1.0 or GNU Lesser General Public License
+  Logback Core Module under Eclipse Public License - v 1.0 or GNU Lesser General Public License
   Maven Model under The Apache Software License, Version 2.0
-  Maven Model Builder under The Apache Software License, Version 2.0
   Maven Repository Metadata Model under The Apache Software License, Version 2.0
-  Micro Mailer under Apache Public License 2.0
   Mime Detection Utility under The Apache Software License, Version 2.0
   Mockito under The MIT License
   Multipart form handler under CDDL license or LGPL license
   MXP1: Xml Pull Parser 3rd Edition (XPP3) under Indiana University Extreme! Lab Software License, vesion 1.1.1 or Public Domain
-  Nexus : API under GNU Affero General Public License
-  Nexus : Application under GNU Affero General Public License
-  Nexus : Configuration under GNU Affero General Public License
-  Nexus : Core Rest API under GNU Affero General Public License
-  Nexus : Logging Extras under GNU Affero General Public License
-  Nexus : OSS Edition under GNU Affero General Public License
-  Nexus : Plugins : Manager under GNU Affero General Public License
-  Nexus : Proxy under GNU Affero General Public License
-  Nexus : Test : Common under GNU Affero General Public License
-  Nexus : Utilities under GNU Affero General Public License
-  Nexus : Web Utils under GNU Affero General Public License
-  Nexus Plugins : Plugin API under GNU General Public License
+  Nexus : API under Eclipse Public License
+  Nexus : Application under Eclipse Public License
+  Nexus : Configuration under Eclipse Public License
+  Nexus : Configuration Model under Eclipse Public License
+  Nexus : Core Rest API under Eclipse Public License
+  Nexus : Core Rest API Model under Eclipse Public License
+  Nexus : Logging Extras under Eclipse Public License
+  Nexus : OSS Edition under Eclipse Public License
+  Nexus : Plugins : Manager under Eclipse Public License
+  Nexus : Plugins : Plugin API under Eclipse Public License
+  Nexus : Proxy under Eclipse Public License
+  Nexus : Test : Common under Eclipse Public License
+  Nexus : Utilities under Eclipse Public License
+  Nexus : Web Utils under Eclipse Public License
   nexus-rut-auth-filter under Apache License Version 2.0
   nexus-rut-auth-plugin under Apache License Version 2.0
   Objenesis under MIT License
-  org.json:org.json under The JSON License
   oro under Apache License, Version 2.0
   Plexus :: Component Annotations under The Apache Software License, Version 2.0
-  Plexus :: Default Container under The Apache Software License, Version 2.0
-  Plexus Application Events (Simple providers) under Apache Public License 2.0
-  Plexus Application Events API under Apache Public License 2.0
+  Plexus Application Events (Simple providers) under Apache License, Version 2.0
+  Plexus Application Events API under Apache License, Version 2.0
   Plexus Cipher: encryption/decryption Component under Apache Public License 2.0
   Plexus Classworlds under The Apache Software License, Version 2.0
-  Plexus CLI under Apache License, Version 2.0
-  Plexus Common Utilities under The Apache Software License, Version 2.0
-  Plexus Encryptor under Apache Public License 2.0
+  Plexus Common Utilities under Apache Public License 2.0
   Plexus Interpolation API under The Apache Software License, Version 2.0
-  Plexus Jetty6 Component under Apache License, Version 2.0
-  Plexus Plugin: Client API under Apache Public License 2.0
+  Plexus Plugin: Client API under Apache License, Version 2.0
   Plexus Plugin: Host Application API under Apache Public License 2.0
-  Plexus Plugin: Model under Apache Public License 2.0
-  Plexus Restlet.org Bridge Component under Apache Public License 2.0
-  Plexus SLF4J Logger under The Apache Software License, Version 2.0
-  Plexus Swizzle Component under Apache Public License 2.0
+  Plexus Plugin: Model under Apache License, Version 2.0
+  Plexus Restlet.org Bridge Component under Apache License, Version 2.0
   Plexus Velocity Component under Apache License, Version 2.0
   Plexus XML Realm under Apache Public License 2.0
   plexus-ehcache under Apache License, Version 2.0
-  Protocol Buffer Java API under New BSD license
+  powermock-api-mockito under The Apache Software License, Version 2.0
+  powermock-api-support under The Apache Software License, Version 2.0
+  powermock-classloading-base under The Apache Software License, Version 2.0
+  powermock-classloading-xstream under The Apache Software License, Version 2.0
+  powermock-core under The Apache Software License, Version 2.0
+  powermock-module-junit4 under The Apache Software License, Version 2.0
+  powermock-module-junit4-common under The Apache Software License, Version 2.0
+  powermock-module-junit4-rule under The Apache Software License, Version 2.0
+  powermock-reflect under The Apache Software License, Version 2.0
   Reference Implementation under CDDL license or LGPL license
   Restlet API under CDDL license or LGPL license
-  ROME, RSS and atOM utilitiEs for Java under The Apache Software License, Version 2.0
   Security: Configuration under Apache Public License 2.0
   Security: Model under Apache Public License 2.0
   Security: REST API under Apache Public License 2.0
@@ -119,22 +118,28 @@ This project includes:
   Security: System under Apache Public License 2.0
   Security: Web under Apache Public License 2.0
   Security: XML Model under Apache Public License 2.0
-  Servlet Specification 2.5 API under CDDL 1.0
-  Sisu - Inject (JSR330 bean support) under The Apache Software License, Version 2.0 or Eclipse Public License, Version 1.0
-  Sisu - Inject (Plexus bean support) under The Apache Software License, Version 2.0 or Eclipse Public License, Version 1.0
+  servlet-api under Commons Development and Distribution License, Version 1.0
+  Sisu - Locks under Apache License, Version 2.0
+  Sisu :: JIRA Mediator :: Attachment Support under Apache License, Version 2.0
+  Sisu :: Problem Reporting :: Reporter under Apache License, Version 2.0
+  Sisu :: Resource Scanner under The Apache Software License, Version 2.0 or Eclipse Public License, Version 1.0
+  SISU Charger Component under Apache License, Version 2.0
+  Sisu Encryptor under Apache Public License 2.0
+  Sisu Guava - Core Library under The Apache Software License, Version 2.0
+  Sisu Guice - Core Library under The Apache Software License, Version 2.0
+  Sisu Guice - Extensions - Servlet under The Apache Software License, Version 2.0
+  Sisu Mailer under Apache License, Version 2.0
   SISU Task Scheduler under Apache License, Version 2.0
+  Sisu-Inject-Bean : Aggregate OSGi bundle under The Apache Software License, Version 2.0 or Eclipse Public License, Version 1.0
+  Sisu-Inject-Plexus : Aggregate OSGi bundle under Eclipse Public License, Version 1.0
   SLF4J API Module under MIT License
-  SLF4J LOG4J-12 Binding under MIT License
-  Sonatype AppContext under Apache Public License 2.0
+  Sonatype AppContext under Apache License, Version 2.0
   Sonatype Nexus Repository Metadata : API under Eclipse Public License
   Sonatype Nexus Repository Metadata : Model under Eclipse Public License
-  Spice Timeline under Apache Public License 2.0
-  Spice Utilities under Apache License, Version 2.0
-  Swizzle :: Jira under Apache License, Version 2.0
-  Swizzle :: Jira Report under Apache License, Version 2.0
-  Swizzle :: Stream under Apache License, Version 2.0
+  Swizzle :: Jira under The Apache Software License, Version 2.0
+  Swizzle :: Stream under The Apache Software License, Version 2.0
   Template engine under CDDL license or LGPL license
   The Netty Project under Apache License, Version 2.0
-  WADL extension under CDDL license or LGPL license
+  XML Pull Parsing API under Public Domain
   XStream Core under BSD style
 
