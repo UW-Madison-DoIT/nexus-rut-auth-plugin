@@ -10,7 +10,7 @@
 
     <groupId>edu.wisc.nexus.plugin</groupId>
     <artifactId>nexus-rut-auth-plugin-parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <packaging>pom</packaging>
     
     <prerequisites>
