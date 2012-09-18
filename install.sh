@@ -21,8 +21,8 @@
 
 set -e
 
-RUT_VERSION=1.0.3-SNAPSHOT
-NEXUS_BASE=/Users/edalquist/tmp/nexus
+RUT_VERSION=1.0.4-SNAPSHOT
+NEXUS_BASE=/home/edalquist/Downloads/nexus
 
 # Download and install rut plugin
 RUT_PLUGIN_BASEDIR=${NEXUS_BASE}/sonatype-work/nexus/plugin-repository/nexus-rut-auth-plugin-

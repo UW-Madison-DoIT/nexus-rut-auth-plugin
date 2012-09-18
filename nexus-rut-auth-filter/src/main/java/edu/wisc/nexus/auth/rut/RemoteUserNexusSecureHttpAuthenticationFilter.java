@@ -24,6 +24,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authc.AuthenticationToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.sonatype.nexus.security.filter.authc.NexusSecureHttpAuthenticationFilter;
 
 /**
@@ -34,7 +36,8 @@ import org.sonatype.nexus.security.filter.authc.NexusSecureHttpAuthenticationFil
  * @version $Revision$
  */
 public class RemoteUserNexusSecureHttpAuthenticationFilter extends NexusSecureHttpAuthenticationFilter {
-
+    private final Logger logger = LoggerFactory.getLogger( getClass() );
+    
     /* (non-Javadoc)
      * @see org.apache.shiro.web.filter.authc.AuthenticatingFilter#createToken(java.lang.String, java.lang.String, javax.servlet.ServletRequest, javax.servlet.ServletResponse)
      */
@@ -44,11 +47,15 @@ public class RemoteUserNexusSecureHttpAuthenticationFilter extends NexusSecureHt
         
         final String remoteUser = httpServletRequest.getRemoteUser();
         if (remoteUser != null) {
-            return new RemoteUserAuthenticationToken(remoteUser);
+            final RemoteUserAuthenticationToken token = new RemoteUserAuthenticationToken(remoteUser);
+            logger.debug("Creating remote_user auth token: " + token);
+            return token;
         }
 
         //Fall back to normal auth
-        return super.createToken(username, password, request, response);
+        final AuthenticationToken token = super.createToken(username, password, request, response);
+        logger.debug("Created default auth token: " + token);
+        return token;
     }
 
 }
