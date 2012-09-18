@@ -50,10 +50,9 @@ This project includes:
   Java Diff under BSD
   JavaMail API under Common Development and Distribution License (CDDL) v1.0
   Javassist under MPL 1.1 or LGPL 2.1
-  JAX-RS API under COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
   JAX-RS implementation under CDDL license or LGPL license
   JCL 1.1.1 implemented over SLF4J under MIT License
-  JSON framework under The JSON License
+  jsr311-api under CDDL License
   JUL to SLF4J bridge under MIT License
   JUnit under Common Public License Version 1.0
   junit-ext under Apache License, Version 2.0

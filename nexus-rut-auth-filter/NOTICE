@@ -42,10 +42,8 @@ This project includes:
   HttpMime under Apache License
   Jackson under The Apache Software License, Version 2.0
   JavaMail API under Common Development and Distribution License (CDDL) v1.0
-  JAX-RS API under COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0
   JAX-RS implementation under CDDL license or LGPL license
   JCL 1.1.1 implemented over SLF4J under MIT License
-  JSON framework under The JSON License
   JUL to SLF4J bridge under MIT License
   Lang under The Apache Software License, Version 2.0
   Logback Classic Module under Eclipse Public License - v 1.0 or GNU Lesser General Public License
