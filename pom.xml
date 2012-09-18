@@ -68,6 +68,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>jsr311-api</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
                 <groupId>org.sonatype.nexus</groupId>
                 <artifactId>nexus-plugin-api</artifactId>
                 <version>${nexus.version}</version>
@@ -87,6 +92,14 @@
                     <exclusion>
                         <artifactId>commons-logging-api</artifactId>
                         <groupId>commons-logging</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>javax.ws.rs</artifactId>
+                        <groupId>javax.ws.rs</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>org.json</artifactId>
+                        <groupId>org.json</groupId>
                     </exclusion>
                 </exclusions>
             </dependency>

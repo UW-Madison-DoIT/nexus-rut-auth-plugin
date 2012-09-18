@@ -52,13 +52,13 @@
                          * if remote user and user not auth'd - doLogin
                          * if remote user and auth'd - noop
                          * if no remote user and not auth'd - noop 
-                         * if no remote user and auth'd doLogout
+                         * if no remote user and auth'd via RUT doLogout
                          */
                         
                         if (responseData.remoteUser && !Sonatype.user.curr.isLoggedIn) {
-                            Sonatype.utils.doLogin(null, response.remoteUser, Sonatype.repoServer.RUTConfig.loggedInUserSource);
+                            Sonatype.utils.doLogin(null, responseData.remoteUser, Sonatype.repoServer.RUTConfig.loggedInUserSource);
                         }
-                        else if (!responseData.remoteUser && Sonatype.user.curr.isLoggedIn) {
+                        else if (!responseData.remoteUser && Sonatype.user.curr.isLoggedIn && Sonatype.user.curr.loggedInUserSource == Sonatype.repoServer.RUTConfig.loggedInUserSource) {
                             Sonatype.repoServer.RUTHandler.doLogout();
                         }
                         
@@ -75,7 +75,7 @@
                     callback : function(options, success, response) {
                     	var responseData = Ext.decode( response.responseText );
                         if (responseData.remoteUser) {
-                        	Sonatype.utils.doLogin(null, response.remoteUser, Sonatype.repoServer.RUTConfig.loggedInUserSource);
+                        	Sonatype.utils.doLogin(null, responseData.remoteUser, Sonatype.repoServer.RUTConfig.loggedInUserSource);
                         }
                         else if (Sonatype.repoServer.RUTConfig.loginUrl != undefined) {
                         	var loginUrl = Sonatype.repoServer.RUTConfig.loginUrl;
