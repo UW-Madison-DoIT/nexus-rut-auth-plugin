@@ -29,6 +29,8 @@ Create `$NEXUS_BASE/sonatype-work/nexus/conf/rut-auth-plugin.xml` from the follo
         </defaultRoles> 
     </rutAuthConfiguration>
 
+Update `/nexus-oss-webapp/nexus/WEB-INF/web.xml` replacing `org.sonatype.nexus.security.filter.authc.NexusSecureHttpAuthenticationFilter` with `edu.wisc.nexus.auth.rut.RemoteUserNexusSecureHttpAuthenticationFilter`.
+
 ### Plugin Configuration Options
 
  - **userFile** - The apache passwd file to manage user password tokens in. This file can be safely modified by other applications and the plugin will read the changes.
