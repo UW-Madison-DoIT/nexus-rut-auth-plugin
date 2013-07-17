@@ -34,7 +34,8 @@ Create `$NEXUS_BASE/sonatype-work/nexus/conf/rut-auth-plugin.xml` from the follo
  - **userFile** - The apache passwd file to manage user password tokens in. This file can be safely modified by other applications and the plugin will read the changes.
  - **emailDomain** - Optional domain to append to the REMOTE_USER username to fill out the user's email field in Nexus.
  - **remoteUserLoginRedirectUrl** - The URL to redirect unauthenticated users to which will force authentication with the external authentication system.
-
+ - **remoteUserLogoutRedirectUrl** - The URL to redirect authenticated users to which will log them out of the external authentication system.
+ - **defaultRoles** - A list of **defaultRole** elements that define the Nexus roles that all users authenticated by this realm are placed into.
 
 ## How It Works
 The `nexus-rut-auth-filter-X.Y.Z.jar` library adds a filter into the Nexus authentication processing that looks at the value of HttpServletRequest.getRemoteUser(). If a value is specified an special `RemoteUserAuthenticationToken` is created making it appear as though the user spefied by REMOTE_USER has authenticated to Nexus.
