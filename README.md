@@ -13,6 +13,28 @@ Copy `nexus-rut-auth-filter-X.Y.Z.jar` to `$NEXUS_BASE/nexus-oss-webapp/nexus/WE
 
 Create `$NEXUS_BASE/sonatype-work/nexus/conf/rut-auth-plugin.xml` from the following template:
 
+    <?xml version="1.0" encoding="UTF-8"?> 
+    <rutAuthConfiguration  
+        xmlns="http://www.sonatype.org/xsd/nexus-token-auth-plugin-1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"> 
+          
+        <version>1.0.0</version> 
+          
+        <userFile>/svn/etc/apache-passwd</userFile> 
+        <emailDomain>wisc.edu</emailDomain> 
+        <remoteUserLoginRedirectUrl>/maven/FORCE_AUTH</remoteUserLoginRedirectUrl>
+        <remoteUserLogoutRedirectUrl>/maven/PubCookie.logout</remoteUserLogoutRedirectUrl>
+        <defaultRoles> 
+            <defaultRole>uw-sso-user</defaultRole> 
+        </defaultRoles> 
+    </rutAuthConfiguration>
+
+### Plugin Configuration Options
+
+ - **userFile** - The apache passwd file to manage user password tokens in. This file can be safely modified by other applications and the plugin will read the changes.
+ - **emailDomain** - Optional domain to append to the REMOTE_USER username to fill out the user's email field in Nexus.
+ - **remoteUserLoginRedirectUrl** - The URL to redirect unauthenticated users to which will force authentication with the external authentication system.
+
 
 ## How It Works
 The `nexus-rut-auth-filter-X.Y.Z.jar` library adds a filter into the Nexus authentication processing that looks at the value of HttpServletRequest.getRemoteUser(). If a value is specified an special `RemoteUserAuthenticationToken` is created making it appear as though the user spefied by REMOTE_USER has authenticated to Nexus.
