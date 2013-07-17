@@ -11,8 +11,11 @@ Copy `nexus-rut-auth-plugin-X.Y.Z.jar` to `$NEXUS_BASE/sonatype-work/nexus/plugi
 
 Copy `nexus-rut-auth-filter-X.Y.Z.jar` to `$NEXUS_BASE/nexus-oss-webapp/nexus/WEB-INF/lib/nexus-rut-auth-filter-X.Y.Z.jar`
 
+Create `$NEXUS_BASE/sonatype-work/nexus/conf/rut-auth-plugin.xml` from the following template:
+
+
 ## How It Works
 The `nexus-rut-auth-filter-X.Y.Z.jar` library adds a filter into the Nexus authentication processing that looks at the value of HttpServletRequest.getRemoteUser(). If a value is specified an special `RemoteUserAuthenticationToken` is created making it appear as though the user spefied by REMOTE_USER has authenticated to Nexus.
 
-The `nexus-rut-auth-plugin-X.Y.Z.jar` adds a new `org.apache.shiro.realm.Realm` that knows how to handles the `RemoteUserAuthenticationToken` created by the filter. The realm can also handle traditional username/password authentication using randomly generated password tokens stored in an Apache passwd formatted file.
+The `nexus-rut-auth-plugin-X.Y.Z.jar` adds a new `org.apache.shiro.realm.Realm` that knows how to handles the `RemoteUserAuthenticationToken` created by the filter. The realm can also handle traditional username/password authentication using randomly generated password tokens stored in an Apache passwd formatted file allowing Maven clients to authenticate via HTTP Basic Auth.
 
