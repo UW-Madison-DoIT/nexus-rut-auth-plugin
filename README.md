@@ -42,3 +42,6 @@ The `nexus-rut-auth-filter-X.Y.Z.jar` library adds a filter into the Nexus authe
 
 The `nexus-rut-auth-plugin-X.Y.Z.jar` adds a new `org.apache.shiro.realm.Realm` that knows how to handles the `RemoteUserAuthenticationToken` created by the filter. The realm can also handle traditional username/password authentication using randomly generated password tokens stored in an Apache passwd formatted file allowing Maven clients to authenticate via HTTP Basic Auth.
 
+## Other Stuff
+Take a look at the [GroupId Management Plugin](https://github.com/UW-Madison-DoIT/nexus-groupid-management-plugin) for a utility to easily manage groupId level access permissions within repositories.
+
